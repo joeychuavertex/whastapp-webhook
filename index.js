@@ -1,7 +1,7 @@
 "use strict";
 
 // Access token for your app
-const token = process.env.WHATSAPP_TOKEN;
+const token = process.env.APP_SECRET;
 
 // Imports dependencies and set up http server
 const request = require("request"),
@@ -37,7 +37,7 @@ app.post("/webhook", (req, res) => {
             axios({
                 method: "POST", // Required, HTTP method, a string, e.g. POST, GET
                 url:
-                    "https://graph.facebook.com/v12.0/" +
+                    "https://graph.facebook.com/v14.0/" +
                     phone_number_id +
                     "/messages?access_token=" +
                     token,
@@ -63,7 +63,7 @@ app.get("/webhook", (req, res) => {
      * UPDATE YOUR VERIFY TOKEN
      *This will be the Verify Token value when you set up webhook
      **/
-    const verify_token = process.env.VERIFY_TOKEN;
+    const verify_token = process.env.TOKEN;
 
     // Parse params from the webhook verification request
     let mode = req.query["hub.mode"];
@@ -84,3 +84,7 @@ app.get("/webhook", (req, res) => {
     }
 });
 
+
+app.get("/", (req, res) => {
+    res.status(200).send("hi, this is ok");
+});
